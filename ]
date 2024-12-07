@@ -51,7 +51,7 @@ char* WrapText(char* text, int size, int lineSize){
 	int lastIndex=0;
 	char* tmp = malloc(strlen(text) * sizeof(char));
 	tmp[0]='\0';
-	for(int i = 0; i<textWidth/size+1;++i){
+	for(int i = 0; i<textWidth/size;++i){
 		if(i == 0) continue;
 		if(i%charsInLine == 0 ){
 			//smart
@@ -63,6 +63,7 @@ char* WrapText(char* text, int size, int lineSize){
 			++insPos;
 			strncpy(tmp, text+lastIndex, insPos-lastIndex);
 			tmp[insPos-lastIndex]='\0';
+			printf("%s\n",tmp);
 			strcat(retVal, tmp);
 			lastIndex=insPos;
 
@@ -74,7 +75,6 @@ char* WrapText(char* text, int size, int lineSize){
 		}
 		
 	}
-	
 	strcat(retVal, "\n");
 	strncat(retVal, text+lastIndex, strlen(text)-lastIndex);
 	return retVal;
