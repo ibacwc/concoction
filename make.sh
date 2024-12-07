@@ -1,4 +1,4 @@
-LIBS="-lSDL2 -lm -lSDL2_image -lSDL2_ttf -lSDL2_mixer"
+LIBS="-lm -lraylib -lGL -lpthread -ldl -lrt -lX11"
 OPTS="-std=c99 -Wall"
 INC_DIR="-Iinc/"
 FILES="*.c"
