@@ -44,35 +44,18 @@ Page tutorialPage;
 
 int SHOULD_RUN = 0;
 char* WrapText(char* text, int size, int lineSize){
-	int charsInLine = floor((float)lineSize/(size/2));
+	int charsInLine = floor((float)lineSize/ceil(size/2));
+	if(lineSize%2) --charsInLine;
 	int textWidth = strlen(text)*size;
 	char* retVal = malloc((strlen(text) +textWidth/size+1)*sizeof(char));
 	retVal[0]='\0';
 	int lastIndex=0;
 	char* tmp = malloc(strlen(text) * sizeof(char));
 	tmp[0]='\0';
-	for(int i = 0; i<textWidth/size+1;++i){
+	for(int i = 0; i<strlen(text)+1;++i){
 		if(i == 0) continue;
-		if(i%charsInLine == 0 ){
+		if(i%charsInLine == 0  || i==strlen(text)){
 			//smart
-			int insPos=i;
-			if (i != charsInLine) strcat(retVal, "\n");
-			while(text[insPos] != ' ' || insPos-lastIndex > charsInLine){
-				--insPos;
-			}
-			++insPos;
-			strncpy(tmp, text+lastIndex, insPos-lastIndex);
-			tmp[insPos-lastIndex]='\0';
-			strcat(retVal, tmp);
-			lastIndex=insPos;
-
-			//basic
-//			strncpy(tmp, text+lastIndex, i-lastIndex);
-//			tmp[i]='\0';
-//			strcat(retVal, tmp);
-//			lastIndex=i;
-		}
-		if(i==textWidth/size){
 			int insPos=i;
 			if (i != charsInLine) strcat(retVal, "\n");
 			while(text[insPos] != ' ' || insPos-lastIndex > charsInLine){
