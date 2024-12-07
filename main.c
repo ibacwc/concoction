@@ -72,10 +72,23 @@ char* WrapText(char* text, int size, int lineSize){
 //			strcat(retVal, tmp);
 //			lastIndex=i;
 		}
+		if(i==textWidth/size){
+			int insPos=i;
+			if (i != charsInLine) strcat(retVal, "\n");
+			while(text[insPos] != ' ' || insPos-lastIndex > charsInLine){
+				--insPos;
+			}
+			++insPos;
+			strncpy(tmp, text+lastIndex, insPos-lastIndex);
+			tmp[insPos-lastIndex]='\0';
+			strcat(retVal, tmp);
+			lastIndex=insPos;
+		}
 		
 	}
-	
-	strcat(retVal, "\n");
+	if((strlen(text+lastIndex)-lastIndex)>= charsInLine){
+		strcat(retVal, "\n");
+	}
 	strncat(retVal, text+lastIndex, strlen(text)-lastIndex);
 	return retVal;
 }
@@ -96,7 +109,7 @@ int Init(){
 	InitWindow(WIN_WIDTH, WIN_HEIGHT, "game");
 	SetTargetFPS(60);
 	SetExitKey(KEY_DELETE);
-	terminus = LoadFontEx("data/terminus.ttf", 48, 0, 250);
+	terminus = LoadFontEx("data/terminus.ttf", 500, 0, 250);
 	char* tutorialText = "1 page = 0.08MJ. 1 folder = 100 pages = 8MJ. 1MJ = 0.0125$. A house needs 200MJ = 2.5$, you have 500 houses to heat (1250$). You can achieve this by paying (like you're supposed to) OR you can burn some documents to get that extra cash for yourself. Don't burn anything important, though, or you may lose your job and be arrested!";
 	char* brokenText = WrapText(tutorialText, PAGE_FONT_SIZE, PAGE_WIDTH);
 	tutorialPage = (Page){brokenText, INFO, {0,0},{0,0}, -1};
