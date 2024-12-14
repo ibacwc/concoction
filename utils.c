@@ -39,3 +39,10 @@ int Collided(int x1, int y1, int w1, int h1,\
 		y1 <= y2+h2) return 1;
 	return 0;
 }
+int min(int a, int b){
+	return (a>b) ? b : a;
+}
+int max(int a, int b){
+	return (a>b) ? a : b;
+}
+
